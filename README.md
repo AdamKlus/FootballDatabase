@@ -7,24 +7,7 @@ This will help them identify live events in the tv logs from their providers.
 I was asked to develop ETL processes for above database in Redshift.           
                 
 The database can be used for further automations and/or as a base for web app.                
-           
-Example query:     
-     
-```
-SELECT e.start_time, home.name home, away.name away  
-FROM events e  
-JOIN competitions c ON e.competition_id = c.competition_id  
-JOIN teams home ON e.home_id = home.team_id  
-JOIN teams away ON e.away_id = away.team_id  
-JOIN times t ON e.start_time = t.start_time  
-WHERE c.name = 'Champions League'  
-AND t.year = 2021 AND t.month = 5    
-ORDER BY e.start_time
-```
 
-Which will give us all Champions League games in May 2021.   
-     
-![Query result](/images/table.png)
 
 ## Database schema design and ETL process              
 Database have 2 sources:                 
@@ -52,7 +35,26 @@ Dimension Tables
 `start_time`, `hour`, `day`, `week`, `month`, `year`, `weekday`           
 
 ![Database schema](/images/schema.png)
+  
+           
+Example query:     
+     
+```
+SELECT e.start_time, home.name home, away.name away  
+FROM events e  
+JOIN competitions c ON e.competition_id = c.competition_id  
+JOIN teams home ON e.home_id = home.team_id  
+JOIN teams away ON e.away_id = away.team_id  
+JOIN times t ON e.start_time = t.start_time  
+WHERE c.name = 'Champions League'  
+AND t.year = 2021 AND t.month = 5    
+ORDER BY e.start_time
+```
 
+Which will give us all Champions League games in May 2021.   
+     
+![Query result](/images/table.png)    
+   
 ## Files in repository             
             
 `slq_queries.py` - queries definitions          
