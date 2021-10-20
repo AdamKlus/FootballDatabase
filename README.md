@@ -24,15 +24,7 @@ ORDER BY e.start_time
 
 Which will give us all Champions League games in May 2021.   
      
-| start_time        | home           | away  |
-
-| ————- |:————-:| —–:|
-
-| 2021-05-04 21:00:00      | Manchester City | Paris SG |
-
-| 2021-05-05 21:00:00     | Chelsea     |   Real Madrid |
-
-| 2021-05-29 21:00:00 | Manchester City    |    Chelsea |
+![Query result](/images/table.png)
 
 ## Database schema design and ETL process              
 Database have 2 sources:                 
@@ -58,7 +50,9 @@ Dimension Tables
              
 4. time - timestamps of records in events broken down into specific units            
 `start_time`, `hour`, `day`, `week`, `month`, `year`, `weekday`           
-             
+
+![Database schema](/images/schema.png)
+
 ## Files in repository             
             
 `slq_queries.py` - queries definitions          
@@ -67,9 +61,9 @@ Dimension Tables
         
 `etl.py` - extract, transform and load processes            
                 
-`dwh.cfg` - credentials and settings for AWS (blanked before uploading to git hub)                
-               
-![Database schema](/images/schema.png)
+`dwh.cfg` - credentials and settings for AWS (not uploaded to git hub)    
+
+`balnk_dwh.cfg` - blanked version of `dwh.cfg`                
 
 ## How to run the python scripts          
            
