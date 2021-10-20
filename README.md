@@ -10,17 +10,18 @@ The database can be used for further automations and/or as a base for web app.
            
 Example query:     
      
+```
+SELECT e.start_time, home.name home, away.name away  
+FROM events e  
+JOIN competitions c ON e.competition_id = c.competition_id  
+JOIN teams home ON e.home_id = home.team_id  
+JOIN teams away ON e.away_id = away.team_id  
+JOIN times t ON e.start_time = t.start_time  
+WHERE c.name = 'Champions League'  
+AND t.year = 2021 AND t.month = 5    
+ORDER BY e.start_time
+```
 
->SELECT e.start_time, home.name home, away.name away
->FROM events e
->JOIN competitions c ON e.competition_id = c.competition_id
->JOIN teams home ON e.home_id = home.team_id
->JOIN teams away ON e.away_id = away.team_id
->JOIN times t ON e.start_time = t.start_time
->WHERE c.name = 'Champions League'
->AND t.year = 2021 AND t.month = 5  
->ORDER BY e.start_time
-    
 Which will give us all Champions League games in May 2021.   
      
 | start_time        | home           | away  |
@@ -82,19 +83,15 @@ Run `etl.py` to populate tables.
      
 1. If the data was increased by 100x.     
         
-Redshift should handle this amount of data.    
-If needed we can always scale up the service.    
+Redshift should handle this amount of data. If needed we can always scale up the service.    
      
 2. If the pipelines were run on a daily basis by 7am.     
      
-We can schedule daily running in Python or with use of Apache Airflow.   
-There is no need of running first part of the ETL pipeline for the historical data on schedule. It is one time event.    
-The second part with scraping can be run daily.     
+We can schedule daily running in Python or with use of Apache Airflow. There is no need of running first part of the ETL pipeline for the historical data on schedule. It is one time event. The second part with scraping can be run daily.     
     
 3. If the database needed to be accessed by 100+ people.    
      
-Redshift can handle this amount of users.    
-If needed we can always scale up the service.     
+Redshift can handle this amount of users. If needed we can always scale up the service.     
 
 
 
