@@ -8,7 +8,6 @@ I was asked to develop ETL processes for above database in Redshift.
                 
 The database can be used for further automations and/or as a base for a web app.                
 
-
 ## Database schema design and ETL process              
 Database have 2 sources:                 
                   
@@ -35,8 +34,7 @@ Dimension Tables
 `start_time`, `hour`, `day`, `week`, `month`, `year`, `weekday`           
 
 ![Database schema](/images/schema.png)
-  
-           
+              
 Example query:     
      
 ```
