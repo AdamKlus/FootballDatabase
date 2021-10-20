@@ -1,12 +1,12 @@
 # Sport Database              
                     
-TV Research company is in need of a database that will be source of truth for the live football events.             
+TV Research company is in need of a database that will be the source of truth for the live football events.             
                 
 This will help them identify live events in the tv logs from their providers.           
                 
 I was asked to develop ETL processes for above database in Redshift.           
                 
-The database can be used for further automations and/or as a base for web app.                
+The database can be used for further automations and/or as a base for a web app.                
 
 
 ## Database schema design and ETL process              
@@ -14,7 +14,7 @@ Database have 2 sources:
                   
 - Historical data in csv format. Each file represents one day. The data is stored in S3 bucket          
                    
-- Current data is scraped from the website Betxplorer.com               
+- Current data is scraped from the website Betexplorer.com               
                   
 ETL is processing both sources into star schema database optimised for queries that will help the team get live football matches data from one trusted source.             
                  
@@ -28,7 +28,7 @@ Dimension Tables
 2. teams - table with all the teams                
 `team_id`, `name`, `country`, `alternative_names`               
                  
-3. copetitions - table with all the copetitions                    
+3. competitions - table with all the competitions                    
 `competition_id`, `name`, `country`, `alternative_names`             
              
 4. time - timestamps of records in events broken down into specific units            
@@ -59,13 +59,13 @@ Which will give us all Champions League games in May 2021.
             
 `slq_queries.py` - queries definitions          
             
-`functions.py` - functions to create the requried tables              
+`functions.py` - functions to create the database              
         
-`etl.py` - extract, transform and load processes            
+`etl.py` - extract, transform and load proces            
                 
 `dwh.cfg` - credentials and settings for AWS (not uploaded to git hub)    
 
-`balnk_dwh.cfg` - blanked version of `dwh.cfg`                
+`blank_dwh.cfg` - blanked version of `dwh.cfg`                
 
 ## How to run the python scripts          
            
@@ -79,7 +79,7 @@ Run `etl.py` to populate tables.
      
 1. If the data was increased by 100x.     
         
-Redshift should handle this amount of data. If needed we can always scale up the service.    
+Redshift should handle this amount of data. If needed we can always scale up the service or even use Spark for loading data from S3.        
      
 2. If the pipelines were run on a daily basis by 7am.     
      
