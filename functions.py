@@ -1,4 +1,3 @@
-
 import requests
 import pandas as pd
 import time
@@ -139,4 +138,3 @@ def scrape_website(cur, conn):
     conn.commit()
 
     return data
-
