@@ -6,7 +6,12 @@ This will help them identify live events in the tv logs from their providers.
                 
 I was asked to develop ETL processes for above database in Redshift.           
                 
-The database can be used for further automations and/or as a base for a web app.                
+The database can be used for further automations and/or as a base for a web app.     
+     
+I have decided to use Redshift, because of its flexibility in scaling and ability to quickly import data from S3.
+
+The first part of the ETL for historical data needs to be run only one time. The second part for scraped data should be run daily to give the team most up to date data.             
+
 
 ## Database schema design and ETL process              
 Database have 2 sources:                 
@@ -20,18 +25,34 @@ ETL is processing both sources into star schema database optimised for queries t
 Fact Table               
                  
 1. events - live football games since July 2013                 
-`event_id` , `start_time`, `home_id`, `away_id`, `competition_id`                 
+`event_id` - PRIMARY KEY,   
+`start_time` - start time of the event,   
+`home_id` - unique ID of home team,     
+`away_id` - unique ID of away team,    
+`competition_id` - unique ID of competiton.                 
                
 Dimension Tables               
                 
 2. teams - table with all the teams                
-`team_id`, `name`, `country`, `alternative_names`               
+`team_id` - unique ID of the team,     
+`name` - name of the team,     
+`country` - country of the team,      
+`alternative_names` - blank space to populate with alternative names.                      
                  
 3. competitions - table with all the competitions                    
-`competition_id`, `name`, `country`, `alternative_names`             
+`competition_id` - unique ID of competition,     
+`name` - name of the competition,      
+`country` - country of the competition,        
+`alternative_names` - blank space to populate with alternative names.              
              
 4. time - timestamps of records in events broken down into specific units            
-`start_time`, `hour`, `day`, `week`, `month`, `year`, `weekday`           
+`start_time` - date and time in timestamp format,     
+`hour` - number representing an hour (0-24),    
+`day` - a day of the month (1-31),    
+`week` - week number in the year (1-53),    
+`month` - number of the month (1-12),    
+`year` - number representing a year,    
+`weekday` - number representing day of the week (0-6), 0 is Sunday, 1 is Monday etc.               
 
 ![Database schema](/images/schema.png)
               
