@@ -10,7 +10,7 @@ The database can be used for further automations and/or as a base for a web app.
      
 I have decided to use Redshift, because of its flexibility in scaling and ability to quickly import data from S3.
 
-The first part of the ETL for historical data needs to be run only one time. The second part for scraped data should be run daily to give the team most up to date data.             
+The first part of the ETL for the historical data needs to be run only one time. The second part for scraped data should be run daily to give the team most up to date data.             
 
 
 ## Database schema design and ETL process              
@@ -25,7 +25,7 @@ ETL is processing both sources into star schema database optimised for queries t
 Fact Table               
                  
 1. events - live football games since July 2013                 
-`event_id` - PRIMARY KEY,   
+`event_id` - unique ID of the event,   
 `start_time` - start time of the event,   
 `home_id` - unique ID of home team,     
 `away_id` - unique ID of away team,    
@@ -53,7 +53,7 @@ Dimension Tables
 `month` - number of the month (1-12),    
 `year` - number representing a year,    
 `weekday` - number representing day of the week (0-6), 0 is Sunday, 1 is Monday etc.               
-
+    
 ![Database schema](/images/schema.png)
               
 Example query:     
