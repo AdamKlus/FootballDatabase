@@ -4,7 +4,7 @@ import time
 from datetime import date, timedelta
 from bs4 import BeautifulSoup
 from sql_queries import create_table_queries, drop_table_queries, copy_table_queries,\
-     insert_table_queries, truncate_table_queries, update_table_queries
+insert_table_queries, truncate_table_queries, update_table_queries, missing_dates, events_count
 
 def drop_tables(cur, conn):
     """
@@ -136,5 +136,34 @@ def scrape_website(cur, conn):
     # execute query
     cur.execute("INSERT INTO staging_events(Country, Competition, Time, Home, Away, Date) VALUES "+args_str.decode("utf-8"))
     conn.commit()
+    # check if all imported
+    check_import(conn, data)
 
     return data
+
+def check_missing_dates(conn):
+    """
+    - checks for missing dates in the events table
+    """
+    print("Checking for missing dates")
+    
+    timeline = pd.read_sql_query(missing_dates, conn)
+    result = pd.date_range(start=min(timeline['date']), end=max(timeline['date'])).difference(timeline['date'])
+    df_result = result.to_frame(index=False, name='Date')
+
+    if not df_result.empty:
+        print("ERROR: SOME DATES ARE MISSING")
+        print(df_result)
+
+def check_import(conn, df):
+    """
+    - compares number of rows between dataframe and staging_events table
+    """
+    print("Checking if all rows got imported")
+
+    count = pd.read_sql_query(events_count, conn)
+
+    if df.index.size != count['count'][0]:
+        print("ERROR: SOME ROWS WERE NOT IMPORTED")
+        print("Number of missing rows: " + str(df.index.size - count['count'][0]))        
+    
