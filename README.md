@@ -102,7 +102,7 @@ Redshift should handle this amount of data. If needed we can always scale up the
      
 2. If the pipelines were run on a daily basis by 7am.     
      
-We can schedule daily running in Python or with use of Apache Airflow. There is no need of running first part of the ETL pipeline for the historical data on schedule. It is one time event. The second part with scraping can be run daily.     
+We can schedule daily running in Python or with use of Apache Airflow.      
     
 3. If the database needed to be accessed by 100+ people.    
      
