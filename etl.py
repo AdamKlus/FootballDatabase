@@ -1,7 +1,7 @@
 import configparser
 import psycopg2
 from functions import drop_tables, create_tables, load_staging_table, insert_tables,\
-     scrape_website, truncate_tables, update_tables
+     scrape_website, truncate_tables, update_tables, check_missing_dates
 
 if __name__ == "__main__":
 
@@ -23,5 +23,6 @@ if __name__ == "__main__":
     truncate_tables(cur, conn) # truncating staging table before pupulating
     scrape_website(cur, conn) # scraping website betexplorer.com for new data and inserting into staging table
     update_tables(cur, conn) # update final tables with data from staging table
-
+    check_missing_dates(conn)
+     
     conn.close()
