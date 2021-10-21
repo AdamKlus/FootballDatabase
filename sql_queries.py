@@ -162,6 +162,18 @@ INSERT INTO teams(name,country)
     t.name IS NULL
 """)
 
+# QUALITY CHECKS
+
+missing_dates = ("""
+SELECT DISTINCT start_time::timestamp::date as date 
+FROM events 
+ORDER BY date
+""")
+
+events_count = ("""
+SELECT COUNT(*) FROM staging_events
+""")
+
 # QUERY LISTS
 
 create_table_queries = [staging_events_table_create, teams_table_create, competitions_table_create, times_table_create, events_table_create]
