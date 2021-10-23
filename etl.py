@@ -20,8 +20,8 @@ if __name__ == "__main__":
     insert_tables(cur, conn) # populate final tables with data from staging table
 
     # ETL FOR NEW DATA
-    truncate_tables(cur, conn) # truncating staging table before pupulating
-    scrape_website(cur, conn) # scraping website betexplorer.com for new data and inserting into staging table
+    truncate_tables(cur, conn) # truncate staging table before pupulating
+    scrape_website(cur, conn) # scrape website betexplorer.com for new data and inserting into staging table
     update_tables(cur, conn) # update final tables with data from staging table
     check_missing_dates(conn)
      
